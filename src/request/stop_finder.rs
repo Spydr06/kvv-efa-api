@@ -19,6 +19,7 @@ impl Request for StopFinderRequest {
         self.0.into()
     }
 
+    #[cfg(feature = "reqwest")]
     async fn get(self) -> Result<Self::Response, reqwest::Error> {
         let response = reqwest::get(self.url()).await?;
         response.json().await

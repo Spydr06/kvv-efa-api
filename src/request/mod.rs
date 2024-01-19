@@ -6,6 +6,7 @@ pub use departure_monitor::{DepartureMonitorRequest, DepartureMonitorRequestBuil
 pub use stop_finder::{StopFinderRequest, StopFinderRequestBuilder};
 //pub use generic::*;
 
+#[cfg(feature = "reqwest")]
 use std::future::Future;
 
 const API_ENDPOINT: &'static str = "https://projekte.kvv-efa.de/sl3-alone/";
@@ -23,6 +24,7 @@ pub trait Request: Sized + Clone {
     fn url(&self) -> &String;
     fn into_url(self) -> String;
 
+    #[cfg(feature = "reqwest")]
     fn get(self) -> impl Future<Output = Result<Self::Response, reqwest::Error>>;
 }
 

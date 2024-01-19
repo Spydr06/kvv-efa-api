@@ -17,6 +17,7 @@ impl Request for DepartureMonitorRequest {
         self.0
     }
     
+    #[cfg(feature = "reqwest")]
     async fn get(self) -> Result<Self::Response, reqwest::Error> {
         let response = reqwest::get(self.url()).await?;
         response.json().await

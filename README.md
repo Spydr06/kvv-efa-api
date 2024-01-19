@@ -5,6 +5,14 @@ Rust bindings for the KVV (Karlsruher Verkehrsverbund) "EFA" API
 > **Warning:**
 > This API doesn't seem like a permanent solution, it could change at any time completely, making these bindings useless!
 
+## Examples
+
+This crate includes a set of examples in the `examples/` directory, run them with:
+
+```sh
+$ cargo run --example <example> --features reqwest
+```
+
 ## Supported Requests:
 
 - [x] `XSLT_DM_REQUEST`: `request::departure_monitor`,

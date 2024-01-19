@@ -14,14 +14,14 @@ name = "basic"
 crate-type = ["bin"]
 
 [features]
+reqwest = ["dep:reqwest"]
 
 [dependencies]
 serde = { version = "1.0.193", features = ["derive"] }
 serde_json = { version = "1.0.108" }
 serde-aux = "4.4.0"
-reqwest = { version = "0.11.23", features = ["json"] }
+reqwest = { version = "0.11.23", features = ["json"], optional = true }
 
 [dev-dependencies]
 tokio = { version = "1.20.x", features = ["full"] }
 colored = "2.1.0"
-
