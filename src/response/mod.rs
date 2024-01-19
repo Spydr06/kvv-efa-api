@@ -1,7 +1,7 @@
 #[macro_export]
 macro_rules! response {
     (pub struct $name: ident {$($field: ident: $t: ty $(as $alias: literal)? $(:$v:vis encoded )?),* $(,)?}) => {
-        #[derive(Debug, Deserialize)]
+        #[derive(Clone, Debug, Deserialize)]
         pub struct $name {
             $(
                 #[serde(
@@ -54,7 +54,7 @@ response!(pub struct Point {
     object: Option<String>,
     main_loc: Option<String> as "mainLoc",
     modes: Option<String>,
-    reference: Station as "ref",
+//    reference: Station as "ref",
 });
 
 response!(pub struct Station {
@@ -112,7 +112,7 @@ response!(pub struct LineMode {
 
 response!(pub struct Diva {
     branch: i32: encoded,
-    line: i32: encoded,
+    line: String,
     supplement: String,
     dir: String,
     project: String,
@@ -132,11 +132,11 @@ response!(pub struct Departure {
     y: f32: encoded,
     map_name: String as "mapName",
     area: i32: encoded,
-    platform: i32: encoded,
+    platform: String,
     platform_name: String as "platformName",
     stop_name: String as "stopName",
     name_wo: String as "nameWO",
-    point_type: String as "pointType",
+    point_type: Option<String> as "pointType",
     countdown: i32: encoded,
     realtime_status: Option<String> as "realtimeStatus",
     realtime_trip_status: Option<String> as "realtimeTripStatus",
@@ -159,8 +159,8 @@ response!(pub struct ServingLine {
     realtime: i32: encoded,
     direction: String,
     direction_from: String as "directionFrom",
-    train_name: String as "trainName",
-    train_number: i32 as "trainNum": encoded,
+    train_name: Option<String> as "trainName",
+    train_number: Option<String> as "trainNum",
     name: String,
     delay: Option<String>,
     dest_id: i32 as "destID": encoded,

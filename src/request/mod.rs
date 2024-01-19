@@ -1,8 +1,10 @@
 pub mod dm;
 pub mod stopfinder;
+pub mod generic;
 
-pub use dm::*;
-pub use stopfinder::*;
+pub use dm::{DMRequest, DMRequestBuilder};
+pub use stopfinder::{StopFinderRequest, StopFinderRequestBuilder};
+//pub use generic::*;
 
 use std::future::Future;
 
