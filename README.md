@@ -5,6 +5,15 @@ Rust bindings for the KVV (Karlsruher Verkehrsverbund) "EFA" API
 > **Warning:**
 > This API doesn't seem like a permanent solution, it could change at any time completely, making these bindings useless!
 
+## Supported Requests:
+
+- [x] `XSLT_DM_REQUEST`: `request::departure_monitor`,
+- [x] `XSLT_STOPFINDER_REQUEST`: `request::stop_finder`,
+- [ ] `XSLT_TRIP_REQUEST`
+- [ ] `XSLT_SELTT_REQUEST`
+- [ ] `XSLT_CM_SHOWADDINFO_REQUEST`
+- [ ] ...
+
 ## Example Code:
 
 ```rs
