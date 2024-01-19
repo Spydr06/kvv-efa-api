@@ -1,4 +1,4 @@
-use kvv_api::{self, request::{DepartureMonitorRequest, Request, StopFinderRequest}};
+use kvv_efa_api::{self, request::{DepartureMonitorRequest, Request, StopFinderRequest}};
 
 #[tokio::main]
 async fn main() -> Result<(), reqwest::Error> {        

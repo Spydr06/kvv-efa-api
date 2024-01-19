@@ -1,5 +1,5 @@
 [package]
-name = "kvv-api"
+name = "kvv-efa-api"
 version = "0.1.0"
 edition = "2021"
 license = "MIT"
@@ -11,10 +11,6 @@ categories = ["api-bindings", "data-structures"]
 
 [[example]]
 name = "basic"
-crate-type = ["bin"]
-
-[[example]]
-name = "cli_departures"
 crate-type = ["bin"]
 
 [features]

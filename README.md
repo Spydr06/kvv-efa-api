@@ -1,4 +1,4 @@
-# kvv-api-rs
+# kvv-efa-api
 
 Rust bindings for the KVV (Karlsruher Verkehrsverbund) "EFA" API
 
@@ -17,7 +17,7 @@ Rust bindings for the KVV (Karlsruher Verkehrsverbund) "EFA" API
 ## Example Code:
 
 ```rs
-use kvv_api::{self, request::{DepartureMonitorRequest, Request, StopFinderRequest}};
+use kvv_efa_api::{self, request::{DepartureMonitorRequest, Request, StopFinderRequest}};
 
 #[tokio::main]
 async fn main() -> Result<(), reqwest::Error> {        
