@@ -2,10 +2,10 @@ use kvv_api::{self, request::{DepartureMonitorRequest, Request, StopFinderReques
 
 #[tokio::main]
 async fn main() -> Result<(), reqwest::Error> {        
-    /*{
+    {
         // Search the station table for "Hauptbahnhof"
         let request = StopFinderRequest::builder()
-            .name_sf("Hauptbahnhof")
+            .name("Hauptbahnhof")
             .build();
 
         println!("Requesting {}...", request.url());
@@ -13,7 +13,7 @@ async fn main() -> Result<(), reqwest::Error> {
         let response = request.get().await?;
 
         println!("response: {:#?}", response);
-    }*/
+    }
 
     {
         // Fetch the departures of station 7000801 ("Durlach Bahnhof")
