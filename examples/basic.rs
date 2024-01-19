@@ -1,4 +1,4 @@
-use kvv_api::{self, request::{DMRequest, Request, StopFinderRequest}};
+use kvv_api::{self, request::{DepartureMonitorRequest, Request, StopFinderRequest}};
 
 #[tokio::main]
 async fn main() -> Result<(), reqwest::Error> {        
@@ -17,8 +17,8 @@ async fn main() -> Result<(), reqwest::Error> {
 
     {
         // Fetch the departures of station 7000801 ("Durlach Bahnhof")
-        let request = DMRequest::builder()
-            .name_dm(7000090)
+        let request = DepartureMonitorRequest::builder()
+            .name(7000090)
             .build();
 
         println!("Requesting {}...", request.url());

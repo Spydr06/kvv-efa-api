@@ -1,9 +1,9 @@
-pub mod dm;
-pub mod stopfinder;
+pub mod departure_monitor;
+pub mod stop_finder;
 pub mod generic;
 
-pub use dm::{DMRequest, DMRequestBuilder};
-pub use stopfinder::{StopFinderRequest, StopFinderRequestBuilder};
+pub use departure_monitor::{DepartureMonitorRequest, DepartureMonitorRequestBuilder};
+pub use stop_finder::{StopFinderRequest, StopFinderRequestBuilder};
 //pub use generic::*;
 
 use std::future::Future;
@@ -29,7 +29,7 @@ pub trait Request: Sized + Clone {
 pub mod types {
     use std::fmt::Display;
 
-    pub type NameDM = i32;
+    pub type StationId = i32;
    
     #[derive(Clone, Copy, Debug)]
     pub enum Type {

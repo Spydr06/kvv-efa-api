@@ -26,16 +26,16 @@ impl Request for StopFinderRequest {
 }
 
 pub struct StopFinderRequestBuilder<'a> {
-    name_sf: &'a str,
-    type_sf: types::Type,
+    name: &'a str,
+    typ: types::Type,
     limit: usize
 }
 
 impl<'a> Default for StopFinderRequestBuilder<'a> {
     fn default() -> Self {
         Self {
-            name_sf: "",
-            type_sf: types::Type::Any,
+            name: "",
+            typ: types::Type::Any,
             limit: 10
         }
     }
@@ -46,20 +46,20 @@ impl<'a> StopFinderRequestBuilder<'a> {
 
     pub fn build(self) -> StopFinderRequest {
         let mut url = format!("{API_ENDPOINT}/{}?outputFormat=JSON{}", StopFinderRequest::REQUEST_TYPE, Self::DEFAULT_OPTIONS);
-        url.push_str(&format!("&name_sf={}", self.name_sf));
-        url.push_str(&format!("&type_sf={}", self.type_sf));
+        url.push_str(&format!("&name_sf={}", self.name));
+        url.push_str(&format!("&type_sf={}", self.typ));
         url.push_str(&format!("&limit={}", self.limit));
 
         StopFinderRequest(url)
     }
 
-    pub fn name_sf(mut self, name: &'a str) -> Self {
-        self.name_sf = name;
+    pub fn name(mut self, name: &'a str) -> Self {
+        self.name = name;
         self
     }
 
-    pub fn type_sf(mut self, type_sf: types::Type) -> Self {
-        self.type_sf = type_sf;
+    pub fn typ(mut self, typ: types::Type) -> Self {
+        self.typ = typ;
         self
     }
 

@@ -4,7 +4,7 @@ use crate::ApiVec;
 
 use super::{Parameter, DateTime, Date, ServingLines, Departure, ResponseData};
 
-response!(pub struct DMResponseData {
+response!(pub struct DepartureMonitorResponseData {
     parameters: Vec<Parameter>,
     dm: ResponseData,
     arr: ResponseData,   

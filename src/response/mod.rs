@@ -1,12 +1,13 @@
 #[macro_export]
 macro_rules! response {
-    (pub struct $name: ident {$($field: ident: $t: ty $(as $alias: literal)? $(:$v:vis encoded )?),* $(,)?}) => {
+    (pub struct $name: ident {$($field: ident: $t: ty $(as $alias: literal)? $(:$venc:vis encoded)? $(; default $vdef:vis)?),* $(,)?}) => {
         #[derive(Clone, Debug, Deserialize)]
         pub struct $name {
             $(
                 #[serde(
                     $(rename = $alias,)?
-                    $(deserialize_with = "deserialize_number_from_string"$v,)?
+                    $(deserialize_with = "deserialize_number_from_string"$venc,)?
+                    $(default $vdef,)?
                 )]
                 pub $field: $t
             ),*
@@ -14,17 +15,17 @@ macro_rules! response {
     };
 }
 
-pub mod dm;
-pub mod stopfinder;
+pub mod departure_monitor;
+pub mod stop_finder;
 
-pub use dm::*;
-pub use stopfinder::*;
+pub use departure_monitor::*;
+pub use stop_finder::*;
 
 use std::collections::HashMap;
 use serde::Deserialize;
 use serde_aux::prelude::*;
 
-use crate::{ApiVec, request::types::NameDM};
+use crate::{ApiVec, request::types::StationId};
 
 response!(pub struct Parameter {
     name: String,
@@ -102,7 +103,7 @@ response!(pub struct LineMode {
     product: String,
     product_id: i32 as "productId": encoded,
     typ: i32 as "type": encoded,
-    code: i32: encoded,
+    code: String,
     destination: String,
     destination_id: i32 as "destID": encoded,
     desc: String,
@@ -127,7 +128,7 @@ response!(pub struct Diva {
 });
 
 response!(pub struct Departure {
-    stop_id: NameDM as "stopID": encoded,
+    stop_id: StationId as "stopID": encoded,
     x: f32: encoded,
     y: f32: encoded,
     map_name: String as "mapName",
@@ -143,10 +144,10 @@ response!(pub struct Departure {
     date_time: DateTime as "dateTime",
     real_date_time: Option<DateTime> as "realDateTime",
     serving_line: ServingLine as "servingLine",
-    operator: Operator,
+    operator: Option<Operator>,
     stop_infos: Option<ApiVec<Info>> as "stopInfos",
     line_infos: Option<ApiVec<Info>> as "lineInfos",
-    attrs: Option<Vec<Parameter>>
+    attrs: Vec<Parameter>; default,
 });
 
 response!(pub struct ServingLine {
@@ -168,7 +169,7 @@ response!(pub struct ServingLine {
 });
 
 response!(pub struct Operator {
-    code: i32: encoded,
+    code: String,
     name: String,
     public_code: String as "publicCode"
 });
@@ -178,7 +179,7 @@ response!(pub struct Info {
     info_link_url: String as "infoLinkURL",
     info_text: InfoText as "infoText",
     param_list: Vec<Parameter> as "paramList",
-    additional_links: Vec<AdditionalLink> as "additionalLinks",
+    additional_links: Vec<AdditionalLink> as "additionalLinks"; default,
 });
 
 response!(pub struct InfoText {

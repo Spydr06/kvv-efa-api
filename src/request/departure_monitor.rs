@@ -1,12 +1,12 @@
 use super::{Request, API_ENDPOINT, types};
-use crate::response::DMResponseData;
+use crate::response::DepartureMonitorResponseData;
 
 #[derive(Clone, Debug)]
-pub struct DMRequest(String);
+pub struct DepartureMonitorRequest(String);
 
-impl Request for DMRequest {
-    type Builder = DMRequestBuilder;
-    type Response = DMResponseData;
+impl Request for DepartureMonitorRequest {
+    type Builder = DepartureMonitorRequestBuilder;
+    type Response = DepartureMonitorResponseData;
     const REQUEST_TYPE: &'static str = "XSLT_DM_REQUEST";
 
     fn url(&self) -> &String {
@@ -23,44 +23,44 @@ impl Request for DMRequest {
     }
 }
 
-pub struct DMRequestBuilder {
-    name_dm: types::NameDM,
-    type_dm: types::Type,
+pub struct DepartureMonitorRequestBuilder {
+    name: types::StationId,
+    typ: types::Type,
     use_realtime: bool,
     limit: usize
 }
 
-impl Default for DMRequestBuilder {
+impl Default for DepartureMonitorRequestBuilder {
     fn default() -> Self {
         Self {
-            name_dm: 0,
-            type_dm: types::Type::Stop,
+            name: 0,
+            typ: types::Type::Stop,
             use_realtime: true,
             limit: 10
         }
     }
 }
 
-impl DMRequestBuilder {
+impl DepartureMonitorRequestBuilder {
     const DEFAULT_OPTIONS: &'static str = "&coordOutputFormat=WGS84[dd.ddddd]&depType=stopEvents&locationServerActive=1&mode=direct&useOnlyStops=1";
 
-    pub fn build(self) -> DMRequest {
-        let mut url = format!("{API_ENDPOINT}/{}?outputFormat=JSON{}", DMRequest::REQUEST_TYPE, Self::DEFAULT_OPTIONS);
-        url.push_str(&format!("&name_dm={}", self.name_dm));
-        url.push_str(&format!("&type_dm={}", self.type_dm));
+    pub fn build(self) -> DepartureMonitorRequest {
+        let mut url = format!("{API_ENDPOINT}/{}?outputFormat=JSON{}", DepartureMonitorRequest::REQUEST_TYPE, Self::DEFAULT_OPTIONS);
+        url.push_str(&format!("&name_dm={}", self.name));
+        url.push_str(&format!("&type_dm={}", self.typ));
         url.push_str(&format!("&useRealtime={}", self.use_realtime as i32));
         url.push_str(&format!("&limit={}", self.limit));
 
-        DMRequest(url)
+        DepartureMonitorRequest(url)
     }
 
-    pub fn name_dm(mut self, name_dm: types::NameDM) -> Self {
-        self.name_dm = name_dm;
+    pub fn name(mut self, name: types::StationId) -> Self {
+        self.name = name;
         self
     }
     
-    pub fn type_dm(mut self, type_dm: types::Type) -> Self {
-        self.type_dm = type_dm;
+    pub fn typ(mut self, typ: types::Type) -> Self {
+        self.typ = typ;
         self
     }
 
